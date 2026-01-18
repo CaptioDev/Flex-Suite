@@ -43,9 +43,13 @@ The project is organized as a monorepo:
    cargo run
    ```
 
-### Scripts
+## ℹ️ Additional Information
 
-- `setup_node.sh`: Helper script to initialize the Node.js environment if needed.
+### Node.js Installation
+
+For Node.js installation, please visit the [official Node.js website](https://nodejs.org/) and download the recommended LTS version or the latest stable release.
+
+**Note**: The `setup_node.sh` script included in older repository commits is outdated and should not be used. Please install Node.js directly from the official website instead.
 
 ---
 Built by [CaptioDev](https://github.com/CaptioDev).
