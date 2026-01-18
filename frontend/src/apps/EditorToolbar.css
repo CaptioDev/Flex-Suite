@@ -1,0 +1,55 @@
+.editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    background-color: var(--md-sys-color-surface-container);
+    /* Adjust based on your vars */
+    border-radius: var(--md-sys-shape-corner-full);
+    padding: 4px;
+}
+
+.toolbar-group {
+    display: flex;
+    gap: 4px;
+}
+
+.toolbar-btn {
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--md-sys-color-on-surface-variant);
+    transition: background-color 0.2s;
+}
+
+.toolbar-btn:hover {
+    background-color: var(--md-sys-color-surface-variant);
+}
+
+.toolbar-btn.active {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+}
+
+.divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--md-sys-color-outline-variant);
+    margin: 0 4px;
+}
+
+.color-picker {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: none;
+    padding: 0;
+}

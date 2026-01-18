@@ -1,0 +1,14 @@
+/home/sebastian/Documents/Programming/office-suite/backend/target/debug/deps/serde-bf967806bfc8dded.d: /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/sebastian/Documents/Programming/office-suite/backend/target/debug/build/serde-3ef6b37478fdd618/out/private.rs
+
+/home/sebastian/Documents/Programming/office-suite/backend/target/debug/deps/libserde-bf967806bfc8dded.rlib: /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/sebastian/Documents/Programming/office-suite/backend/target/debug/build/serde-3ef6b37478fdd618/out/private.rs
+
+/home/sebastian/Documents/Programming/office-suite/backend/target/debug/deps/libserde-bf967806bfc8dded.rmeta: /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/sebastian/Documents/Programming/office-suite/backend/target/debug/build/serde-3ef6b37478fdd618/out/private.rs
+
+/home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs:
+/home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs:
+/home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs:
+/home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs:
+/home/sebastian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs:
+/home/sebastian/Documents/Programming/office-suite/backend/target/debug/build/serde-3ef6b37478fdd618/out/private.rs:
+
+# env-dep:OUT_DIR=/home/sebastian/Documents/Programming/office-suite/backend/target/debug/build/serde-3ef6b37478fdd618/out

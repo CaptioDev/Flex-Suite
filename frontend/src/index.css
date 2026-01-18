@@ -1,0 +1,78 @@
+:root {
+  /* Material 3 Expressive - Light Scheme (Base) */
+  --md-sys-color-primary: #6750A4;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #EADDFF;
+  --md-sys-color-on-primary-container: #21005D;
+
+  --md-sys-color-secondary: #625B71;
+  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary-container: #E8DEF8;
+  --md-sys-color-on-secondary-container: #1D192B;
+
+  --md-sys-color-tertiary: #7D5260;
+  --md-sys-color-on-tertiary: #FFFFFF;
+  --md-sys-color-tertiary-container: #FFD8E4;
+  --md-sys-color-on-tertiary-container: #31111D;
+
+  --md-sys-color-surface: #FEF7FF;
+  --md-sys-color-on-surface: #1D1B20;
+  --md-sys-color-surface-variant: #E7E0EC;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-outline: #79747E;
+
+  --md-sys-color-background: #FEF7FF;
+  --md-sys-color-on-background: #1D1B20;
+
+  /* Expressive Motion */
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0.0, 1.0);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+  
+  --md-sys-motion-duration-short1: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-medium2: 400ms;
+  --md-sys-motion-duration-long2: 600ms;
+
+  /* Typography */
+  --md-sys-typescale-display-large: 400 57px/64px 'Roboto Flex', sans-serif;
+  --md-sys-typescale-display-medium: 400 45px/52px 'Roboto Flex', sans-serif;
+  --md-sys-typescale-headline-large: 400 32px/40px 'Roboto Flex', sans-serif;
+  --md-sys-typescale-body-large: 400 16px/24px 'Roboto Flex', sans-serif;
+  --md-sys-typescale-body-medium: 400 14px/20px 'Roboto Flex', sans-serif;
+
+  /* Shapes */
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto Flex', sans-serif;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Utilities */
+.surface {
+  background-color: var(--md-sys-color-surface);
+}
+.surface-variant {
+  background-color: var(--md-sys-color-surface-variant);
+}
+.primary-container {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* Animations */
+.bouncy {
+    transition: transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized-decelerate);
+}
+.bouncy:active {
+    transform: scale(0.95);
+}

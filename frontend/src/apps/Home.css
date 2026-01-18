@@ -1,0 +1,83 @@
+.home-container {
+    padding: 32px;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: auto;
+}
+
+.home-header {
+    margin-bottom: 48px;
+}
+
+.display-medium {
+    font: var(--md-sys-typescale-display-medium);
+    margin: 0;
+    color: var(--md-sys-color-on-surface);
+}
+
+.body-large {
+    font: var(--md-sys-typescale-body-large);
+    margin: 8px 0 0;
+    color: var(--md-sys-color-secondary);
+}
+
+.recent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.file-card {
+    background-color: var(--md-sys-color-surface-variant);
+    border-radius: var(--md-sys-shape-corner-medium);
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card-preview {
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card-info {
+    padding: 16px;
+    background-color: var(--md-sys-color-surface-container-low);
+    /* lighter than variant? */
+}
+
+.card-title {
+    font: var(--md-sys-typescale-body-large);
+    font-weight: 500;
+}
+
+.card-meta {
+    font: var(--md-sys-typescale-body-medium);
+    color: var(--md-sys-color-outline);
+}
+
+.fab {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    height: 56px;
+    min-width: 56px;
+    padding: 0 16px;
+    /* Extended FAB */
+    border-radius: 16px;
+    /* M3 FAB */
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    font: var(--md-sys-typescale-label-large);
+    font-weight: 500;
+}

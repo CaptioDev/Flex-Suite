@@ -1,0 +1,256 @@
+.document-editor-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--md-sys-color-background);
+}
+
+.editor-surface {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--md-sys-color-surface);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.toolbar-area {
+    padding: 12px 24px;
+    background-color: var(--md-sys-color-surface-container);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    z-index: 10;
+}
+
+.editor-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px 60px;
+    cursor: text;
+    transition: background-color 0.2s ease;
+}
+
+/* Tiptap Styling within the content */
+.tiptap-editor .ProseMirror {
+    outline: none;
+    min-height: 100%;
+}
+
+.tiptap-editor .ProseMirror p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-family: 'Roboto Flex', sans-serif;
+}
+
+.tiptap-editor .ProseMirror h1 {
+    font-size: 32px;
+    font-weight: 400;
+    /* Non-bold */
+    margin-top: 24px;
+    margin-bottom: 16px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.tiptap-editor .ProseMirror h2 {
+    font-size: 24px;
+    font-weight: 400;
+    /* Non-bold */
+    margin-top: 20px;
+    margin-bottom: 12px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.tiptap-editor .ProseMirror h3,
+.tiptap-editor .ProseMirror h4,
+.tiptap-editor .ProseMirror h5,
+.tiptap-editor .ProseMirror h6 {
+    font-weight: 400;
+    color: var(--md-sys-color-on-surface);
+}
+
+.tiptap-editor .ProseMirror blockquote {
+    border-left: 3px solid var(--md-sys-color-primary);
+    padding-left: 16px;
+    margin-left: 0;
+    font-style: italic;
+    color: var(--md-sys-color-secondary);
+}
+
+.tiptap-editor .ProseMirror img {
+    max-width: 100%;
+    border-radius: var(--md-sys-shape-corner-medium);
+}
+
+@media print {
+    @page {
+        margin: 0;
+        size: auto;
+    }
+
+    /* Reset Global Layout */
+    body,
+    #root,
+    .app-container {
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    /* Hide Navigation and Sidebar */
+    .nav-rail,
+    .toolbar-area,
+    .math-sidebar,
+    .document-editor-container>.math-sidebar {
+        display: none !important;
+    }
+
+    /* Reset Main Content Containers */
+    .main-content,
+    .content-surface {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        overflow: visible !important;
+        position: static !important;
+    }
+
+    /* Reset Editor Containers */
+    .document-editor-container {
+        display: block !important;
+        background: transparent !important;
+        /* Allow scroll-area BG to show */
+        height: auto !important;
+        width: 100% !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+
+    .editor-surface {
+        display: block !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+        height: auto !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+
+    /* Ensure Content is Visible and Styled */
+    .editor-scroll-area {
+        display: block !important;
+        padding: 2.5cm !important;
+        min-height: 100% !important;
+        /* Changed from 100vh to 100% to avoid overflow */
+        height: auto !important;
+        overflow: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Page break visibility */
+    /* Page break visibility */
+    .page-break {
+        break-after: page;
+        page-break-after: always;
+        height: 0;
+        visibility: hidden;
+    }
+
+    /* Fixed Printing Background */
+    .print-background {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        /* Behind everything */
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        pointer-events: none;
+    }
+}
+
+.print-background {
+    display: none;
+}
+
+/* Visual style for page break in editor */
+.page-break {
+    border-top: 2px dashed var(--md-sys-color-outline-variant);
+    margin: 20px 0;
+    position: relative;
+    cursor: default;
+    user-select: none;
+}
+
+.page-break::after {
+    content: "Page Break";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--md-sys-color-surface-container);
+    padding: 0 8px;
+    font-size: 10px;
+    color: var(--md-sys-color-outline);
+}
+
+/* Table Styling */
+.tiptap-editor table {
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.tiptap-editor table td,
+.tiptap-editor table th {
+    border: 1px solid var(--md-sys-color-outline);
+    box-sizing: border-box;
+    min-width: 1em;
+    padding: 8px 12px;
+    position: relative;
+    vertical-align: top;
+}
+
+.tiptap-editor table th {
+    background-color: var(--md-sys-color-surface-container-low);
+    font-weight: bold;
+    text-align: left;
+}
+
+.tiptap-editor .selectedCell:after {
+    background: rgba(200, 200, 255, 0.4);
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.tiptap-editor .column-resize-handle {
+    background-color: var(--md-sys-color-primary);
+    bottom: -2px;
+    pointer-events: none;
+    position: absolute;
+    right: -2px;
+    top: 0;
+    width: 4px;
+}
