@@ -1,4 +1,4 @@
-# Office Suite
+# Flex Suite
 
 A modern, high-performance office suite featuring a rich text document editor with Markdown and LaTeX support, a robust calculation engine, and a sleek Material 3 Expressive UI.
 
@@ -47,6 +47,5 @@ The project is organized as a monorepo:
 
 - `setup_node.sh`: Helper script to initialize the Node.js environment if needed.
 
-## 📄 License
-
+---
 Built by [CaptioDev](https://github.com/CaptioDev).
