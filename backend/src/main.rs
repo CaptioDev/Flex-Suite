@@ -13,18 +13,18 @@ use engine_ffi::SafeTable;
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    let app = Router::new()
-        .route("/", get(root))
-        .route("/api/test-engine", get(test_engine));
+    // Serve static files from the "dist" directory
+    let serve_dir = tower_http::services::ServeDir::new("dist")
+        .not_found_service(tower_http::services::ServeFile::new("dist/index.html"));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let app = Router::new()
+        .route("/api/test-engine", get(test_engine))
+        .fallback_service(serve_dir);
+
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     println!("listening on {}", addr);
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
-}
-
-async fn root() -> &'static str {
-    "Material 3 Expressive Office Suite Backend API"
 }
 
 #[derive(Serialize)]

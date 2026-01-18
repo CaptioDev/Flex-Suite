@@ -65,7 +65,7 @@ export const serializeToMarkdown = (content: JSONContent): string => {
                 return `\`\`\`${lang}\n${code}\n\`\`\``;
 
             case 'blockquote':
-                return node.content?.map(serializeNode).join('\n').split('\n').map(line => `> ${line}`).join('\n');
+                return node.content?.map(serializeNode).join('\n').split('\n').map(line => `> ${line}`).join('\n') || '';
 
             case 'horizontalRule':
                 return '---';
