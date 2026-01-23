@@ -1,0 +1,28 @@
+# Build artifacts
+dist/
+target/
+.wrangler/
+build/
+
+# Node dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project specific
+backend/Cargo.lock
+frontend/package-lock.json
+worker/pkg/

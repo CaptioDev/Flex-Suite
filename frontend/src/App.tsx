@@ -10,8 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/docs" element={<DocumentEditor />} />
-          <Route path="/slides" element={<div style={{ padding: 32 }}><h1>Slides Coming Soon</h1></div>} />
-          <Route path="/sheets" element={<div style={{ padding: 32 }}><h1>Sheets Coming Soon</h1></div>} />
+          <Route path="/docs/:id" element={<DocumentEditor />} />
         </Routes>
       </Layout>
     </Router>

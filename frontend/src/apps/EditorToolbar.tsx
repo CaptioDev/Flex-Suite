@@ -8,7 +8,8 @@ import {
     Undo, Redo,
     List, ListOrdered,
     Superscript, Subscript,
-    Table as TableIcon
+    Table as TableIcon,
+    Save, Check
 } from 'lucide-react';
 import { TablePicker } from './components/TablePicker';
 import { serializeToMarkdown } from './utils/markdownSerializer';
@@ -24,6 +25,7 @@ interface ToolbarProps {
     editor: Editor;
     pageBackground: string;
     setPageBackground: (color: string) => void;
+    onSave?: () => void;
 }
 
 const Dropdown = ({ label, children, width = 140, align = 'left' }: { label: React.ReactNode, children: React.ReactNode, width?: number, align?: 'left' | 'right' }) => {
@@ -382,7 +384,7 @@ const SaveDropdown = ({ editor }: { editor: Editor }) => {
     };
 
     return (
-        <Dropdown label={<><File size={18} /><ChevronDown size={14} /></>} width={160}>
+        <Dropdown label={<File size={18} />} width={160}>
             <button
                 onClick={handleExportMarkdown}
                 style={{
@@ -448,11 +450,53 @@ const TableDropdown = ({ editor }: { editor: Editor }) => {
     );
 };
 
-export const EditorToolbar = ({ editor, pageBackground, setPageBackground }: ToolbarProps) => {
+export const EditorToolbar = ({ editor, pageBackground, setPageBackground, onSave }: ToolbarProps) => {
+    const [isSaving, setIsSaving] = useState(false);
+
     if (!editor) return null;
+
+    const handleManualSave = () => {
+        if (onSave) {
+            setIsSaving(true);
+            onSave();
+            setTimeout(() => setIsSaving(false), 2000);
+        }
+    };
 
     return (
         <div className="editor-toolbar" style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="toolbar-group">
+                <ToolbarButton
+                    onClick={handleManualSave}
+                    isActive={false}
+                    title="Save to Workspace"
+                >
+                    <AnimatePresence mode="wait">
+                        {isSaving ? (
+                            <motion.div
+                                key="check"
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0, opacity: 0 }}
+                            >
+                                <Check size={18} color="var(--md-sys-color-primary)" />
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="save"
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0, opacity: 0 }}
+                            >
+                                <Save size={18} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </ToolbarButton>
+            </div>
+
+            <div className="divider" />
+
             <div className="toolbar-group">
                 <ToolbarButton
                     onClick={() => chain(editor).undo().run()}

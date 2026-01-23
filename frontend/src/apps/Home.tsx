@@ -1,5 +1,9 @@
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getDocuments } from '../utils/storage';
+import type { DocumentMetadata } from '../utils/storage';
 import './Home.css';
 
 const containerVariants = {
@@ -22,10 +26,27 @@ const itemVariants = {
 };
 
 export const Home = () => {
+    const navigate = useNavigate();
+    const [documents, setDocuments] = useState<DocumentMetadata[]>([]);
+
+    useEffect(() => {
+        setDocuments(getDocuments());
+    }, []);
+
+    const handleCreateNew = () => {
+        const id = Math.random().toString(36).substring(2, 9);
+        navigate(`/docs/${id}`);
+    };
+
+    const formatDate = (timestamp: number) => {
+        const date = new Date(timestamp);
+        return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    };
+
     return (
         <div className="home-container">
             <header className="home-header">
-                <h1 className="display-medium">Welcome back, Sebastian</h1>
+                <h1 className="display-medium">Welcome back</h1>
                 <p className="body-large">Continue where you left off</p>
             </header>
 
@@ -35,21 +56,32 @@ export const Home = () => {
                 initial="hidden"
                 animate="visible"
             >
-                {[1, 2, 3, 4].map((i) => (
-                    <motion.div key={i} className="file-card bouncy" variants={itemVariants}>
-                        <div className="card-preview"></div>
+                {documents.map((doc) => (
+                    <motion.div
+                        key={doc.id}
+                        className="file-card bouncy"
+                        variants={itemVariants}
+                        onClick={() => navigate(`/docs/${doc.id}`)}
+                    >
+                        <div className="card-preview" style={{ backgroundColor: doc.background || 'rgba(0,0,0,0.05)' }}></div>
                         <div className="card-info">
-                            <div className="card-title">Project Proposal {i}</div>
-                            <div className="card-meta">Edited yesterday</div>
+                            <div className="card-title">{doc.title || 'Untitled Document'}</div>
+                            <div className="card-meta">Edited {formatDate(doc.lastEdited)}</div>
                         </div>
                     </motion.div>
                 ))}
+                {documents.length === 0 && (
+                    <p style={{ color: 'var(--md-sys-color-outline)', gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
+                        No documents yet. Click the + button to create one!
+                    </p>
+                )}
             </motion.div>
 
             <motion.button
                 className="fab"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                onClick={handleCreateNew}
             >
                 <Plus size={24} color="var(--md-sys-color-on-primary-container)" />
                 <span>New</span>

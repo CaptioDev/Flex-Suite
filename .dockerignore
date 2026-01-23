@@ -1,0 +1,27 @@
+# Git
+.git
+.gitignore
+
+# Rust
+backend/target/
+**/*.rs.bk
+backend/Cargo.lock
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

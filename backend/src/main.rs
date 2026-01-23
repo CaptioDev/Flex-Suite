@@ -1,4 +1,5 @@
-mod engine_ffi;
+#![cfg(not(target_arch = "wasm32"))]
+mod engine;
 
 use axum::{
     routing::{get, post},
@@ -7,17 +8,21 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
-use engine_ffi::SafeTable;
+use crate::engine::Table;
 
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    let app = Router::new()
-        .route("/", get(root))
-        .route("/api/test-engine", get(test_engine));
+    // Serve static files from the "dist" directory
+    let serve_dir = tower_http::services::ServeDir::new("dist")
+        .not_found_service(tower_http::services::ServeFile::new("dist/index.html"));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let app = Router::new()
+        .route("/api/test-engine", get(test_engine))
+        .fallback_service(serve_dir);
+
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     println!("listening on {}", addr);
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
@@ -35,7 +40,7 @@ struct EngineResult {
 
 async fn test_engine() -> Json<EngineResult> {
     // Create a table, set some values, verify logic
-    let table = SafeTable::new();
+    let mut table = Table::new();
     table.set_number(0, 0, 10.5); // A1
     table.set_number(1, 0, 20.0); // A2
     
@@ -44,6 +49,6 @@ async fn test_engine() -> Json<EngineResult> {
     
     Json(EngineResult {
         sum_result: result,
-        message: "Calculated via C++ Engine".to_string(),
+        message: "Calculated via Rust Engine".to_string(),
     })
 }

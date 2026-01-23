@@ -15,6 +15,9 @@ import { motion } from 'framer-motion';
 import { MathExtension } from './extensions/MathExtension';
 import { PageBreak } from './extensions/PageBreak';
 import { MathSidebar } from './components/MathSidebar';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { getDocumentById, saveDocument } from '../utils/storage';
 
 import { FontSize } from './extensions/FontSize';
 import { LineHeight } from './extensions/LineHeight';
@@ -26,6 +29,11 @@ import TableHeader from '@tiptap/extension-table-header';
 import TableCell from '@tiptap/extension-table-cell';
 
 export const DocumentEditor = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const isInitialLoad = useRef(true);
+
     const [selectedMathNode, setSelectedMathNode] = useState<{ pos: number, latex: string } | null>(null);
     const [pageBackground, setPageBackground] = useState('#ffffff');
     const [, setForceUpdate] = useState(0);
@@ -60,10 +68,16 @@ export const DocumentEditor = () => {
             <h2>Welcome to your new Document</h2>
             <p>This is a <strong>rich text editor</strong> built with Material 3 Expressive.</p>
             <p>Try changing <span style="color: #6750A4">colors</span>, fonts, or <u>underlining</u> text.</p>
-            <p>You can also insert LaTeX math: <span data-type="math">E=mc^2</span></p>
+            <p>You can also insert complex LaTeX math: <span data-type="math" data-latex="\\mathcal{P}_{r} = \\int_{0}^{\\infty} \\left[ \\frac{\\sum_{i=1}^{n} \\oint_{\\Gamma} \\frac{\\det(\\mathbf{A}_{i})}{\\sqrt[3]{1 + e^{-\\lambda_i t}}} \\, d\\Gamma}{\\left( \\frac{\\partial^2}{\\partial x^2} + \\frac{\\partial^2}{\\partial y^2} \\right) \\Psi(x,y,t)} \\right] \\cdot \\prod_{k=1}^{M} \\left( \\sum_{j=0}^{\\infty} \\frac{(-1)^j}{j! \\, \\Gamma(j+\\nu+1)} \\left( \\frac{z}{2} \\right)^{2j+\\nu} \\right) \\, dt">\\mathcal{P}_{r} = \\int_{0}^{\\infty} \\left[ \\frac{\\sum_{i=1}^{n} \\oint_{\\Gamma} \\frac{\\det(\\mathbf{A}_{i})}{\\sqrt[3]{1 + e^{-\\lambda_i t}}} \\, d\\Gamma}{\\left( \\frac{\\partial^2}{\\partial x^2} + \\frac{\\partial^2}{\\partial y^2} \\right) \\Psi(x,y,t)} \\right] \\cdot \\prod_{k=1}^{M} \\left( \\sum_{j=0}^{\\infty} \\frac{(-1)^j}{j! \\, \\Gamma(j+\\nu+1)} \\left( \\frac{z}{2} \\right)^{2j+\\nu} \\right) \\, dt</span></p>
         `,
         onTransaction: ({ editor }) => {
             setForceUpdate(n => n + 1);
+
+            // Only auto-open/close the sidebar if the editor is focused.
+            // This prevents the sidebar from closing when the user is typing inside it (causing editor blur).
+            if (!editor.isFocused) {
+                return;
+            }
 
             // Check if selection is on a math node
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,6 +101,52 @@ export const DocumentEditor = () => {
         }
     };
 
+    useEffect(() => {
+        if (!id) {
+            const newId = Math.random().toString(36).substring(2, 9);
+            navigate(`/docs/${newId}`, { replace: true });
+            return;
+        }
+
+        const doc = getDocumentById(id);
+        if (doc && editor) {
+            editor.commands.setContent(doc.content);
+            setPageBackground(doc.background || '#ffffff');
+        }
+    }, [id, editor, navigate]);
+
+    useEffect(() => {
+        if (!editor || !id) return;
+
+        const handleUpdate = () => {
+            if (isInitialLoad.current) {
+                isInitialLoad.current = false;
+                return;
+            }
+
+            if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+            saveTimeoutRef.current = setTimeout(() => {
+                const content = editor.getHTML();
+                const titleMatch = content.match(/<h[1-6]>(.*?)<\/h[1-6]>/);
+                const title = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '') : 'Untitled Document';
+
+                saveDocument({
+                    id,
+                    title,
+                    content,
+                    background: pageBackground,
+                    lastEdited: Date.now()
+                });
+            }, 1000);
+        };
+
+        editor.on('update', handleUpdate);
+        return () => {
+            editor.off('update', handleUpdate);
+            if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+        };
+    }, [editor, id, pageBackground]);
+
     return (
         <div className="document-editor-container" style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', overflow: 'hidden' }}>
 
@@ -96,6 +156,21 @@ export const DocumentEditor = () => {
                     editor={editor}
                     pageBackground={pageBackground}
                     setPageBackground={setPageBackground}
+                    onSave={() => {
+                        const content = editor.getHTML();
+                        const titleMatch = content.match(/<h[1-6]>(.*?)<\/h[1-6]>/);
+                        const title = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '') : 'Untitled Document';
+
+                        if (id) {
+                            saveDocument({
+                                id,
+                                title,
+                                content,
+                                background: pageBackground,
+                                lastEdited: Date.now()
+                            });
+                        }
+                    }}
                 />}
             </div>
 

@@ -25,7 +25,7 @@ export const MathExtension = Node.create({
     addAttributes() {
         return {
             latex: {
-                default: 'E=mc^2',
+                default: '\\mathcal{P}_{r} = \\int_{0}^{\\infty} \\left[ \\frac{\\sum_{i=1}^{n} \\oint_{\\Gamma} \\frac{\\det(\\mathbf{A}_{i})}{\\sqrt[3]{1 + e^{-\\lambda_i t}}} \\, d\\Gamma}{\\left( \\frac{\\partial^2}{\\partial x^2} + \\frac{\\partial^2}{\\partial y^2} \\right) \\Psi(x,y,t)} \\right] \\cdot \\prod_{k=1}^{M} \\left( \\sum_{j=0}^{\\infty} \\frac{(-1)^j}{j! \\, \\Gamma(j+\\nu+1)} \\left( \\frac{z}{2} \\right)^{2j+\\nu} \\right) \\, dt',
             },
         };
     },

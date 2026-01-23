@@ -1,0 +1,15 @@
+{
+    "name": "office-suite-root",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "deploy": "wrangler deploy",
+        "build:frontend": "npm run build --prefix frontend",
+        "build:backend": "cd backend && wasm-pack build --target web --out-dir ../worker/pkg",
+        "build": "npm run build:frontend && npm run build:backend"
+    },
+    "devDependencies": {
+        "wrangler": "^3.0.0",
+        "@cloudflare/kv-asset-handler": "^0.3.0"
+    }
+}

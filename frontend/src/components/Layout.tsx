@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Home, FileText, Monitor, Table } from 'lucide-react'; // 'monitor' for Slides? Presentation?
+import { Home, FileText } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import './Layout.css'; // We'll create this or use inline styles with our variables
@@ -32,13 +32,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="app-container">
             <nav className="nav-rail">
-                <div className="logo">OS</div>
+                <div className="logo">BD</div>
 
                 <div className="nav-items">
                     <NavItem to="/" icon={Home} label="Home" active={path === "/"} />
                     <NavItem to="/docs" icon={FileText} label="Docs" active={path.startsWith("/docs")} />
-                    <NavItem to="/slides" icon={Monitor} label="Slides" active={path.startsWith("/slides")} />
-                    <NavItem to="/sheets" icon={Table} label="Sheets" active={path.startsWith("/sheets")} />
                 </div>
             </nav>
             <main className="main-content">
