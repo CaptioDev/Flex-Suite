@@ -18,11 +18,47 @@
     position: relative;
 }
 
-.toolbar-area {
-    padding: 12px 24px;
+.editor-header {
+    display: flex;
+    flex-direction: column;
     background-color: var(--md-sys-color-surface-container);
     border-bottom: 1px solid var(--md-sys-color-outline-variant);
     z-index: 10;
+}
+
+.title-section {
+    padding: 16px 24px 8px;
+    display: flex;
+    align-items: center;
+}
+
+.document-title-input {
+    font: var(--md-sys-typescale-headline-small);
+    color: var(--md-sys-color-on-surface);
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 4px 0;
+    margin: 0;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.document-title-input:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    padding-left: 8px;
+    margin-left: -8px;
+}
+
+.document-title-input:focus {
+    background-color: var(--md-sys-color-surface-container-highest);
+    padding-left: 8px;
+    margin-left: -8px;
+}
+
+.toolbar-area {
+    padding: 4px 12px 12px;
 }
 
 .editor-scroll-area {

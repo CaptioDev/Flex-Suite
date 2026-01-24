@@ -49,9 +49,31 @@
     /* lighter than variant? */
 }
 
+.card-title-container {
+    min-height: 24px;
+    margin-bottom: 4px;
+}
+
 .card-title {
     font: var(--md-sys-typescale-body-large);
     font-weight: 500;
+    cursor: text;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-title-input {
+    font: var(--md-sys-typescale-body-large);
+    font-weight: 500;
+    border: none;
+    border-bottom: 2px solid var(--md-sys-color-primary);
+    background: transparent;
+    color: var(--md-sys-color-on-surface);
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    outline: none;
 }
 
 .card-meta {

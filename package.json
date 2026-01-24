@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "deploy": "wrangler deploy",
+        "deploy": "wrangler deploy -c worker/wrangler.toml",
         "build:frontend": "npm run build --prefix frontend",
         "build:backend": "cd backend && wasm-pack build --target web --out-dir ../worker/pkg",
         "build": "npm run build:frontend && npm run build:backend"

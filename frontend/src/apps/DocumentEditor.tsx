@@ -36,6 +36,7 @@ export const DocumentEditor = () => {
 
     const [selectedMathNode, setSelectedMathNode] = useState<{ pos: number, latex: string } | null>(null);
     const [pageBackground, setPageBackground] = useState('#ffffff');
+    const [docTitle, setDocTitle] = useState('Untitled Document');
     const [, setForceUpdate] = useState(0);
 
     const editor = useEditor({
@@ -112,6 +113,7 @@ export const DocumentEditor = () => {
         if (doc && editor) {
             editor.commands.setContent(doc.content);
             setPageBackground(doc.background || '#ffffff');
+            setDocTitle(doc.title || 'Untitled Document');
         }
     }, [id, editor, navigate]);
 
@@ -127,12 +129,10 @@ export const DocumentEditor = () => {
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
             saveTimeoutRef.current = setTimeout(() => {
                 const content = editor.getHTML();
-                const titleMatch = content.match(/<h[1-6]>(.*?)<\/h[1-6]>/);
-                const title = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '') : 'Untitled Document';
 
                 saveDocument({
                     id,
-                    title,
+                    title: docTitle,
                     content,
                     background: pageBackground,
                     lastEdited: Date.now()
@@ -145,33 +145,40 @@ export const DocumentEditor = () => {
             editor.off('update', handleUpdate);
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
         };
-    }, [editor, id, pageBackground]);
+    }, [editor, id, pageBackground, docTitle]);
 
     return (
         <div className="document-editor-container" style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', overflow: 'hidden' }}>
 
-            {/* Toolbar Area - Fixed at Top */}
-            <div className="toolbar-area" style={{ flex: '0 0 auto', zIndex: 10, borderBottom: '1px solid var(--md-sys-color-outline-variant)' }}>
-                {editor && <EditorToolbar
-                    editor={editor}
-                    pageBackground={pageBackground}
-                    setPageBackground={setPageBackground}
-                    onSave={() => {
-                        const content = editor.getHTML();
-                        const titleMatch = content.match(/<h[1-6]>(.*?)<\/h[1-6]>/);
-                        const title = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '') : 'Untitled Document';
-
-                        if (id) {
-                            saveDocument({
-                                id,
-                                title,
-                                content,
-                                background: pageBackground,
-                                lastEdited: Date.now()
-                            });
-                        }
-                    }}
-                />}
+            <div className="editor-header">
+                <div className="title-section">
+                    <input
+                        className="document-title-input"
+                        value={docTitle}
+                        onChange={(e) => setDocTitle(e.target.value)}
+                        placeholder="Untitled Document"
+                    />
+                </div>
+                {/* Toolbar Area - Fixed at Top */}
+                <div className="toolbar-area" style={{ flex: '0 0 auto', zIndex: 10 }}>
+                    {editor && <EditorToolbar
+                        editor={editor}
+                        pageBackground={pageBackground}
+                        setPageBackground={setPageBackground}
+                        onSave={() => {
+                            const content = editor.getHTML();
+                            if (id) {
+                                saveDocument({
+                                    id,
+                                    title: docTitle,
+                                    content,
+                                    background: pageBackground,
+                                    lastEdited: Date.now()
+                                });
+                            }
+                        }}
+                    />}
+                </div>
             </div>
 
             {/* Editor Viewport - Scrollable Area containing the "Page" */}

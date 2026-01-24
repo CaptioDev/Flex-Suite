@@ -1,16 +1,3 @@
-name = "office-suite"
-main = "worker/index.js"
+name = "boronlabs-suite"
+pages_build_output_dir = "frontend/dist"
 compatibility_date = "2024-01-01"
-
-account_id = "YOUR_ACCOUNT_ID"
-zone_id = "YOUR_ZONE_ID"
-route = "demo.thesucculent.co.uk/*"
-
-[site]
-bucket = "./frontend/dist"
-
-[build]
-command = "npm install --prefix frontend && npm run build --prefix frontend && cd backend && wasm-pack build --target web --out-dir ../worker/pkg"
-
-[vars]
-# Add any environment variables here
