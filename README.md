@@ -25,7 +25,14 @@ docker compose up --build
 ```
 The application will be available at `http://localhost:3000`.
 
-### Option 2: Manual Build
+### Option 2: Pre-built Docker Images
+Pull and run the latest stable version from Docker Hub:
+```bash
+docker pull maskedmatters/flex-suite:latest
+docker run -p 3000:3000 maskedmatters/flex-suite:latest
+```
+
+### Option 3: Manual Build
 1. **Frontend**: `cd frontend && npm install && npm run build`
 2. **Backend**: `cd backend && cargo run --release`
    (The backend serves the built frontend from `frontend/dist`)
@@ -33,28 +40,13 @@ The application will be available at `http://localhost:3000`.
 ## 🛠️ Local Development
 
 ### Prerequisites
-
 - **Node.js**: Version 18 or higher.
 - **Rust**: Latest stable version.
+- **Docker**: For container testing.
 
-### Setup
-
-1. **Install Dependencies**:
-   ```bash
-   cd frontend && npm install
-   ```
-
-2. **Run Development Server**:
-   ```bash
-   # From root
-   npm run dev --prefix frontend
-   ```
-
-3. **Build Project**:
-   ```bash
-   # From root
-   npm run build
-   ```
+### Workflow (Hot Reload)
+1. **Frontend**: `cd frontend && npm run dev` (Runs at `http://localhost:5173`)
+2. **Backend**: `cd backend && cargo run` (Runs at `http://localhost:3000`)
 
 ---
 Built by [CaptioDev](https://github.com/CaptioDev).

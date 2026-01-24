@@ -28,10 +28,6 @@ async fn main() {
     axum::serve(listener, app).await.unwrap();
 }
 
-async fn root() -> &'static str {
-    "Material 3 Expressive Office Suite Backend API"
-}
-
 #[derive(Serialize)]
 struct EngineResult {
     sum_result: f64,

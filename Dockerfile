@@ -14,10 +14,6 @@ COPY backend ./backend
 WORKDIR /usr/src/app/backend
 RUN cargo build --release
 
-# Stage 3: Runtime
-FROM alpine:latest
-WORKDIR /app
-
 # Copy Backend Binary
 COPY --from=backend-builder /usr/src/app/backend/target/release/backend .
 
